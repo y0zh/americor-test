@@ -1,5 +1,5 @@
 <p align="center">
-    <h1 align="center">Тестовое задание компании Americor на должность Yii разработчика.</h1>
+    <h1 align="center">Тестовое задание компании Americor <br> на должность Yii разработчика.</h1>
     <br>
 </p>
 
