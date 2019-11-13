@@ -10,44 +10,20 @@ class Export extends ExportMenu
 {
     public $exportType = self::FORMAT_CSV;
 
-    /**
-     * @return int|void
-     */
-    public function generateFooter()
+    public function init()
     {
-        $row = $this->_endRow + $this->_beginRow;
-        $footerExists = false;
-        $columns = $this->getVisibleColumns();
-        if (count($columns) == 0) {
-            return;
+        if (empty($this->options['id'])) {
+            $this->options['id'] = $this->getId();
         }
-        $count = 0;
-        foreach ($this->getVisibleColumns() as $n => $column) {
-            if (is_array($column->footer)) {
-                $count = count($column->footer) > $count ? count($column->footer) : $count;
-            }
-        }
-        for ($i = 0 ; $i < $count ; $i++) {
-
-            $this->_endCol = 0;
-            foreach ($this->getVisibleColumns() as $n => $column) {
-                $this->_endCol = $this->_endCol + 1;
-                if ($column->footer) {
-                    $footerExists = true;
-                    $footer = !is_array($column->footer) ? ($i == 0 ? $column->footer : '') : ($column->footer[$i] ?? '');
-                    $footer = trim($footer) !== '' ? $footer : $column->grid->emptyCell;
-                    $cell = $this->_objPHPExcel->getActiveSheet()->setCellValue(
-                        self::columnName($this->_endCol) . ($row + 1),
-                        $footer,
-                        true
-                    );
-                    $this->raiseEvent('onRenderFooterCell', [$cell, $footer, $this]);
-                }
-            }
-            if ($footerExists) $row++;
-
+        if (empty($this->exportRequestParam)) {
+            $this->exportRequestParam = 'exportFull_' . $this->options['id'];
         }
 
-        return $row;
+        $_POST[\Yii::$app->request->methodParam] = 'POST';
+        $_POST[$this->exportRequestParam] = true;
+        $_POST[$this->exportTypeParam] = $this->exportType;
+        $_POST[$this->colSelFlagParam] = false;
+
+        parent::init();
     }
 }

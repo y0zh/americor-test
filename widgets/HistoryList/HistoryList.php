@@ -32,7 +32,7 @@ class HistoryList extends Widget
         $params = ArrayHelper::merge([
             'exportType' => Export::FORMAT_CSV
         ], $params);
-        $params[0] = '/history/export';
+        $params[0] = 'site/export';
 
         return Url::to($params);
     }

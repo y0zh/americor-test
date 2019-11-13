@@ -22,7 +22,7 @@ class HistoryListHelper
             case History::EVENT_OUTGOING_FAX:
             case History::EVENT_INCOMING_FAX:
                 $fax = $model->fax;
-                return $model->eventText . ($fax && $fax->twilio_status ? " (" . $fax->twilio_status . ")" : '');
+                return $model->eventText;
             case History::EVENT_CUSTOMER_CHANGE_TYPE:
                 return "$model->eventText " .
                     (Customer::getTypeTextByType($model->getDetailOldValue('type')) ?? "not set") . ' to ' .
