@@ -1,16 +1,28 @@
 <?php
+use yii\helpers\Html;
+
 /* @var $model \app\models\History */
 /* @var $oldValue string */
 /* @var $newValue string */
 /* @var $content string */
+?>
 
-echo $this->render('_item_common', [
-    'user' => $model->user,
-    'body' => "$model->eventText " .
-        "<span class='tag'>" . ($oldValue ?? "<i>not set</i>") . "</span>" .
-        "<span class='arrow'></span>" .
-        "<span class='tag'>" . ($newValue ?? "<i>not set</i>") . "</span>",
-    'content' => $content ?? null,
-    'bodyDatetime' => $model->ins_ts,
-    'iconClass' => 'fa-gear bg-purple-light'
-]);
+<div class="bg-success ">
+    <?php echo "$model->eventText " .
+        "<span class='badge badge-pill badge-warning'>" . ($oldValue ?? "<i>not set</i>") . "</span>" .
+        " &#8594; " .
+        "<span class='badge badge-pill badge-success'>" . ($newValue ?? "<i>not set</i>") . "</span>";
+    ?>
+
+    <span><?= \app\widgets\DateTime\DateTime::widget(['dateTime' =>  $model->ins_ts]) ?></span>
+</div>
+
+<?php if (isset($model->user)): ?>
+    <div class="bg-info"><?= $model->user->username; ?></div>
+<?php endif; ?>
+
+<?php if (isset($content) && $content): ?>
+    <div class="bg-info">
+        <?php echo $content ?>
+    </div>
+<?php endif; ?>

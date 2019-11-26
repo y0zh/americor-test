@@ -7,6 +7,7 @@ use app\models\Fax;
 use app\models\Sms;
 use app\models\Task;
 use app\models\User;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -27,10 +28,10 @@ trait ObjectNameTrait
     public static function getObjectLabels()
     {
         return [
-            Call::class => \Yii::t('app', 'Calls'),
-            Sms::class => \Yii::t('app', 'SMS'),
-            Task::class => \Yii::t('app', 'Tasks'),
-            Fax::class => \Yii::t('app', 'Faxes'),
+            Call::class => Yii::t('app', 'Calls'),
+            Sms::class => Yii::t('app', 'SMS'),
+            Task::class => Yii::t('app', 'Tasks'),
+            Fax::class => Yii::t('app', 'Faxes'),
         ];
     }
 

@@ -30,7 +30,7 @@ class m191111_090949_init extends Migration
         $this->createTable('{{%customer}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull()->unique(),
-            'status' => $this->integer()->notNull(),
+            'status' => $this->integer()->notNull()->defaultValue(0),
         ], $tableOptions);
 
 
@@ -72,6 +72,8 @@ class m191111_090949_init extends Migration
             'user_id' => $this->integer(),
             'from' => $this->string(),
             'to' => $this->string(),
+            'direction' => $this->smallInteger()->notNull()->defaultValue(0),
+            'type' => $this->string(),
         ], $tableOptions);
 
         $this->addForeignKey('fk_fax__user_id', 'fax', 'user_id', 'user', 'id', 'RESTRICT', 'CASCADE');

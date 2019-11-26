@@ -15,18 +15,9 @@ use Yii;
  * @property string $message
  * @property string $ins_ts
  * @property integer $direction
- * @property integer $applicant_id
  * @property string $phone_to
- * @property string $flowroute_id
  * @property integer $type
- * @property string $phone_system
- * @property string $phone_system_status
- * @property string $ytel_message_sid
- * @property string $response
  * @property string $formatted_message
- *
- *
- * @property string $phone_system_message_id;
  *
  * @property string $statusText
  * @property string $directionText
@@ -69,7 +60,7 @@ class Sms extends \yii\db\ActiveRecord
         return [
             [['phone_to', 'direction'], 'required'],
             [['user_id', 'customer_id', 'status', 'direction', 'applicant_id', 'type'], 'integer'],
-            [['message', 'flowroute_id', 'phone_system', 'ytel_message_sid', 'response', 'phone_system_message_id', 'phone_system_status'], 'string'],
+            [['message'], 'string'],
             [['ins_ts'], 'safe'],
             [['phone_from', 'phone_to'], 'string', 'max' => 255],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
@@ -94,11 +85,8 @@ class Sms extends \yii\db\ActiveRecord
             'ins_ts' => Yii::t('app', 'Date'),
             'direction' => Yii::t('app', 'Direction'),
             'directionText' => Yii::t('app', 'Direction'),
-            'applicant_id' => Yii::t('app', 'To'),
             'user.fullname' => Yii::t('app', 'User'),
             'customer.name' => Yii::t('app', 'Client'),
-            'phoneSystemText' => Yii::t('app', 'Phone System'),
-            'formatted_message' => Yii::t('app', 'Message'),
         ];
     }
 

@@ -103,7 +103,7 @@ class HistorySearch extends History
 
         $query->andFilterWhere([
             'history.customer_id' => $this->customer_id,
-            'history.user_id' => $this->user_id,
+            'history.user_id' => $this->user_id
         ]);
 
         return $dataProvider;

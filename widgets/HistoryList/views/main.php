@@ -35,7 +35,7 @@ use yii\widgets\Pjax;
     'itemView' => '_item',
     'options' => [
         'tag' => 'ul',
-        'class' => 'list-group list-group-history'
+        'class' => 'list-group'
     ],
     'itemOptions' => [
         'tag' => 'li',

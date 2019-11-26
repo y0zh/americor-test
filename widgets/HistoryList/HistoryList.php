@@ -13,8 +13,7 @@ class HistoryList extends Widget
 {
     public function run()
     {
-        $model = new HistorySearch([
-        ]);
+        $model = new HistorySearch();
 
         return $this->render('main', [
             'model' => $model,

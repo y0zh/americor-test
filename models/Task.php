@@ -14,17 +14,8 @@ use Yii;
  * @property string $title
  * @property string $text
  * @property string $due_date
- * @property boolean $is_follow
- * @property boolean $is_closed
  * @property integer $priority
- * @property integer $department_id
  * @property string $ins_ts
- * @property string $object
- * @property integer $object_id
- * @property integer $customer_creditor_id
- * @property integer $ins_user_id
- * @property integer $type
- * @property integer $dm_id
  *
  * @property string $stateText
  * @property string $state
@@ -33,10 +24,8 @@ use Yii;
  * @property boolean $isOverdue
  * @property boolean $isDone
  *
- * @property User $insUser
  * @property Customer $customer
  * @property User $user
- * @property Sms $sms
  *
  *
  * @property string $isInbox
@@ -66,12 +55,10 @@ class Task extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'owners_id'], 'required'],
-            [['user_id', 'customer_id', 'status', 'priority', 'department_id', 'object_id', 'customer_creditor_id', 'ins_user_id', 'type', 'dm_id'], 'integer'],
+            [['user_id', 'title'], 'required'],
+            [['user_id', 'customer_id', 'status', 'priority'], 'integer'],
             [['text'], 'string'],
-            [['is_follow', 'is_closed'], 'boolean'],
             [['title', 'object'], 'string', 'max' => 255],
-            [['ins_user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['ins_user_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -92,20 +79,8 @@ class Task extends \yii\db\ActiveRecord
             'due_date' => Yii::t('app', 'Due Date'),
             'formatted_due_date' => Yii::t('app', 'Due Date'),
             'priority' => Yii::t('app', 'Priority'),
-            'department_id' => Yii::t('app', 'Department'),
             'ins_ts' => Yii::t('app', 'Ins Ts'),
-            'owners_id' => Yii::t('app', 'Owner'),
-            'ins_user_id' => Yii::t('app', 'Insert User'),
-            'customer_creditor_id' => Yii::t('app', 'Creditor'),
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getInsUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'ins_user_id']);
     }
 
     /**
