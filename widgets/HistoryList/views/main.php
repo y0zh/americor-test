@@ -5,8 +5,8 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $dataProvider \yii\data\ActiveDataProvider */
-/* @var $model \app\models\search\HistorySearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $model app\models\history\HistorySearch */
 /* @var $linkExport string */
 
 ?>

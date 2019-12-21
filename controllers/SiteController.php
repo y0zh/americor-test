@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\search\HistorySearch;
+use app\models\history\HistorySearch;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -63,7 +63,6 @@ class SiteController extends Controller
 
 
     /**
-     * @param integer $customerId
      * @param string $exportType
      * @return string
      */

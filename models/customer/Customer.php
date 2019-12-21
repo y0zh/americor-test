@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\customer;
 
 
 use Yii;
@@ -14,16 +14,6 @@ use Yii;
   */
 class Customer extends \yii\db\ActiveRecord
 {
-    const QUALITY_ACTIVE = 'active';
-    const QUALITY_REJECTED = 'rejected';
-    const QUALITY_COMMUNITY = 'community';
-    const QUALITY_UNASSIGNED = 'unassigned';
-    const QUALITY_TRICKLE = 'trickle';
-
-    const TYPE_LEAD = 'lead';
-    const TYPE_DEAL = 'deal';
-    const TYPE_LOAN = 'loan';
-
     /**
      * @inheritdoc
      */
@@ -58,11 +48,11 @@ class Customer extends \yii\db\ActiveRecord
     public static function getQualityTexts()
     {
         return [
-            self::QUALITY_ACTIVE => Yii::t('app', 'Active'),
-            self::QUALITY_REJECTED => Yii::t('app', 'Rejected'),
-            self::QUALITY_COMMUNITY => Yii::t('app', 'Community'),
-            self::QUALITY_UNASSIGNED => Yii::t('app', 'Unassigned'),
-            self::QUALITY_TRICKLE => Yii::t('app', 'Trickle'),
+            CustomerQualityEnum::QUALITY_ACTIVE => Yii::t('app', 'Active'),
+            CustomerQualityEnum::QUALITY_REJECTED => Yii::t('app', 'Rejected'),
+            CustomerQualityEnum::QUALITY_COMMUNITY => Yii::t('app', 'Community'),
+            CustomerQualityEnum::QUALITY_UNASSIGNED => Yii::t('app', 'Unassigned'),
+            CustomerQualityEnum::QUALITY_TRICKLE => Yii::t('app', 'Trickle'),
         ];
     }
 
@@ -81,9 +71,9 @@ class Customer extends \yii\db\ActiveRecord
     public static function getTypeTexts()
     {
         return [
-            self::TYPE_LEAD => Yii::t('app', 'Lead'),
-            self::TYPE_DEAL => Yii::t('app', 'Deal'),
-            self::TYPE_LOAN => Yii::t('app', 'Loan'),
+            CustomerTypeEnum::TYPE_LEAD => Yii::t('app', 'Lead'),
+            CustomerTypeEnum::TYPE_DEAL => Yii::t('app', 'Deal'),
+            CustomerTypeEnum::TYPE_LOAN => Yii::t('app', 'Loan'),
         ];
     }
 

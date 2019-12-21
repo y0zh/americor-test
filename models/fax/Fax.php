@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\models\fax;
 
 use Yii;
+use app\models\user\User;
 
 /**
  * This is the model class for table "fax".
@@ -21,18 +22,12 @@ use Yii;
  */
 class Fax extends \yii\db\ActiveRecord
 {
-    const DIRECTION_INCOMING = 0;
-    const DIRECTION_OUTGOING = 1;
-
-    const TYPE_POA_ATC = 'poa_atc';
-    const TYPE_REVOCATION_NOTICE = 'revocation_notice';
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'fax';
+        return '{{%fax}}';
     }
 
     /**
@@ -77,8 +72,8 @@ class Fax extends \yii\db\ActiveRecord
     public static function getTypeTexts()
     {
         return [
-            self::TYPE_POA_ATC => Yii::t('app', 'POA/ATC'),
-            self::TYPE_REVOCATION_NOTICE => Yii::t('app', 'Revocation'),
+            FaxTypeEnum::TYPE_POA_ATC => Yii::t('app', 'POA/ATC'),
+            FaxTypeEnum::TYPE_REVOCATION_NOTICE => Yii::t('app', 'Revocation'),
         ];
     }
 

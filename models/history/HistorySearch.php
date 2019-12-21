@@ -1,13 +1,13 @@
 <?php
 
-namespace app\models\search;
+namespace app\models\history;
 
-use app\models\History;
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * HistorySearch represents the model behind the search form about `app\models\History`.
+ * HistorySearch represents the model behind the search form about `\app\models\history\History`.
  *
  * @property array $objects
  */
@@ -44,10 +44,10 @@ class HistorySearch extends History
     public function attributeLabels()
     {
         return [
-            'user_id' => \Yii::t('app', 'Agents'),
-            'objects' => \Yii::t('app', 'Types'),
-            'search' => \Yii::t('app', 'Search'),
-            'department_ids' => \Yii::t('app', 'Department'),
+            'user_id' => Yii::t('app', 'Agents'),
+            'objects' => Yii::t('app', 'Types'),
+            'search' => Yii::t('app', 'Search'),
+            'department_ids' => Yii::t('app', 'Department'),
         ];
     }
 
@@ -95,10 +95,6 @@ class HistorySearch extends History
         $query->with([
             'customer',
             'user',
-            'sms',
-            'task',
-            'call',
-            'fax',
         ]);
 
         $query->andFilterWhere([

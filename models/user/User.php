@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\models\user;
 
 use Yii;
 
@@ -16,10 +16,6 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
-    const STATUS_DELETED = 0;
-    const STATUS_HIDDEN = 1;
-    const STATUS_ACTIVE = 10;
-
     /**
      * @inheritdoc
      */
@@ -40,15 +36,13 @@ class User extends \yii\db\ActiveRecord
                 'created_at',
                 'updated_at',
             ], 'integer'],
-            [[
-                'username',
-                'email',
-            ], 'string', 'max' => 255],
+            [['username'], 'string', 'max' => 255],
 
             [['username'], 'unique'],
+            [['email'], 'email'],
 
-            ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED, self::STATUS_HIDDEN]],
+            ['status', 'default', 'value' => UserStatusEnum::STATUS_ACTIVE],
+            ['status', 'in', 'range' => [UserStatusEnum::STATUS_ACTIVE, UserStatusEnum::STATUS_DELETED, UserStatusEnum::STATUS_HIDDEN]],
         ];
     }
 
@@ -70,9 +64,9 @@ class User extends \yii\db\ActiveRecord
     public static function getStatusTexts()
     {
         return [
-            self::STATUS_ACTIVE => Yii::t('app', 'Active'),
-            self::STATUS_DELETED => Yii::t('app', 'Deleted'),
-            self::STATUS_HIDDEN => Yii::t('app', 'Hidden'),
+            UserStatusEnum::STATUS_ACTIVE => Yii::t('app', 'Active'),
+            UserStatusEnum::STATUS_DELETED => Yii::t('app', 'Deleted'),
+            UserStatusEnum::STATUS_HIDDEN => Yii::t('app', 'Hidden'),
         ];
     }
 

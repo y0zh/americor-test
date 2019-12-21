@@ -1,8 +1,10 @@
 <?php
 
-namespace app\models;
+namespace app\models\task;
 
 use Yii;
+use app\models\user\User;
+use app\models\customer\Customer;
 
 /**
  * This is the model class for table "{{%task}}".
@@ -33,14 +35,6 @@ use Yii;
  */
 class Task extends \yii\db\ActiveRecord
 {
-    const STATUS_NEW = 0;
-    const STATUS_DONE = 1;
-    const STATUS_CANCEL = 3;
-
-    const STATE_INBOX = 'inbox';
-    const STATE_DONE = 'done';
-    const STATE_FUTURE = 'future';
-
     /**
      * @inheritdoc
      */
@@ -105,9 +99,9 @@ class Task extends \yii\db\ActiveRecord
     public static function getStatusTexts()
     {
         return [
-            self::STATUS_NEW => Yii::t('app', 'New'),
-            self::STATUS_DONE => Yii::t('app', 'Complete'),
-            self::STATUS_CANCEL => Yii::t('app', 'Cancel'),
+            TaskStatusEnum::STATUS_NEW => Yii::t('app', 'New'),
+            TaskStatusEnum::STATUS_DONE => Yii::t('app', 'Complete'),
+            TaskStatusEnum::STATUS_CANCEL => Yii::t('app', 'Cancel'),
         ];
     }
 
@@ -134,9 +128,9 @@ class Task extends \yii\db\ActiveRecord
     public static function getStateTexts()
     {
         return [
-            self::STATE_INBOX => \Yii::t('app', 'Inbox'),
-            self::STATE_DONE => \Yii::t('app', 'Done'),
-            self::STATE_FUTURE => \Yii::t('app', 'Future')
+            TaskStateEnum::STATE_INBOX => \Yii::t('app', 'Inbox'),
+            TaskStateEnum::STATE_DONE => \Yii::t('app', 'Done'),
+            TaskStateEnum::STATE_FUTURE => \Yii::t('app', 'Future')
         ];
     }
 
@@ -154,7 +148,7 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getIsOverdue()
     {
-        return $this->status !== self::STATUS_DONE && strtotime($this->due_date) < time();
+        return $this->status !== TaskStatusEnum::STATUS_DONE && strtotime($this->due_date) < time();
     }
 
     /**
@@ -162,6 +156,6 @@ class Task extends \yii\db\ActiveRecord
      */
     public function getIsDone()
     {
-        return $this->status == self::STATUS_DONE;
+        return $this->status == TaskStatusEnum::STATUS_DONE;
     }
 }

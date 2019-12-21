@@ -1,9 +1,11 @@
 <?php
 
-namespace app\models;
+namespace app\models\call;
 
-use common\models\interfaces\CallInterface;
 use Yii;
+use app\models\user\User;
+use app\models\customer\Customer;
+use app\models\DirectionEnum;
 
 /**
  * This is the model class for table "{{%call}}".
@@ -30,12 +32,6 @@ use Yii;
  */
 class Call extends \yii\db\ActiveRecord
 {
-    const STATUS_NO_ANSWERED = 0;
-    const STATUS_ANSWERED = 1;
-
-    const DIRECTION_INCOMING = 0;
-    const DIRECTION_OUTGOING = 1;
-
     public $duration = 720;
 
     /**
@@ -103,7 +99,7 @@ class Call extends \yii\db\ActiveRecord
      */
     public function getClient_phone()
     {
-        return $this->direction == self::DIRECTION_INCOMING ? $this->phone_from : $this->phone_to;
+        return $this->direction == DirectionEnum::DIRECTION_INCOMING ? $this->phone_from : $this->phone_to;
     }
 
     /**
@@ -112,15 +108,15 @@ class Call extends \yii\db\ActiveRecord
     public function getTotalStatusText()
     {
         if (
-            $this->status == self::STATUS_NO_ANSWERED
-            && $this->direction == self::DIRECTION_INCOMING
+            $this->status == CallStatusEnum::STATUS_NO_ANSWERED
+            && $this->direction == DirectionEnum::DIRECTION_INCOMING
         ) {
             return Yii::t('app', 'Missed Call');
         }
 
         if (
-            $this->status == self::STATUS_NO_ANSWERED
-            && $this->direction == self::DIRECTION_OUTGOING
+            $this->status == CallStatusEnum::STATUS_NO_ANSWERED
+            && $this->direction == DirectionEnum::DIRECTION_OUTGOING
         ) {
             return Yii::t('app', 'Client No Answer');
         }
@@ -153,8 +149,8 @@ class Call extends \yii\db\ActiveRecord
     public static function getFullDirectionTexts()
     {
         return [
-            self::DIRECTION_INCOMING => Yii::t('app', 'Incoming Call'),
-            self::DIRECTION_OUTGOING => Yii::t('app', 'Outgoing Call'),
+            DirectionEnum::DIRECTION_INCOMING => Yii::t('app', 'Incoming Call'),
+            DirectionEnum::DIRECTION_OUTGOING => Yii::t('app', 'Outgoing Call'),
         ];
     }
 
